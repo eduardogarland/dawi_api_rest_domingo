@@ -40,7 +40,7 @@ public class AlumnoController {
 	public ResponseEntity<List<Alumno>> buscar(@PathVariable("dni") String dni) {
 		log.info(">>>> busca por dni : " + dni);
 		List<Alumno> lstAlumno = service.listaPorDni(dni);
-		if (CollectionUtils.isEmpty(lstAlumno)) {
+		if (!CollectionUtils.isEmpty(lstAlumno)) {
 			return ResponseEntity.ok(lstAlumno);
 		} else {
 			log.info(">>>> buscar por dni - no existen alumnos con ese dni : " + dni);
