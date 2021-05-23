@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,8 +34,21 @@ public class AlumnoController {
 		List<Alumno> lstAlumno = service.listaAlumno();
 		return ResponseEntity.ok(lstAlumno);
 	}
-
 	
+	
+	@GetMapping("/buscarPorDNI/{dni}")
+	public ResponseEntity<List<Alumno>> buscar(@PathVariable String dni) {
+		log.info(">>>> busca por dni : " + dni);
+		List<Alumno> lstAlumno = service.listaPorDni(dni);
+		if (CollectionUtils.isEmpty(lstAlumno)) {
+			return ResponseEntity.ok(lstAlumno);
+		} else {
+			log.info(">>>> buscar por dni - no existen alumnos con ese dni : " + dni);
+			return ResponseEntity.badRequest().build();
+		}
+	}
+
+
 	@PostMapping
 	public ResponseEntity<Alumno> registra(@RequestBody Alumno obj){
 		log.info(">>>> registra  " + obj.getIdAlumno());
