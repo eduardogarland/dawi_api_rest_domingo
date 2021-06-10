@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.entity.Alumno;
@@ -29,6 +30,7 @@ public class AlumnoController {
 	private AlumnoService service;
 	
 	@GetMapping
+	@ResponseBody
 	public ResponseEntity<List<Alumno>> lista(){
 		log.info(">>>> lista ");
 		List<Alumno> lstAlumno = service.listaAlumno();
