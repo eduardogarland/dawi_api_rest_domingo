@@ -32,7 +32,7 @@ public class AlumnoController {
 	@GetMapping
 	@ResponseBody
 	public ResponseEntity<List<Alumno>> lista(){
-		log.info(">>>> lista ");
+		//log.info(">>>> lista ");
 		List<Alumno> lstAlumno = service.listaAlumno();
 		return ResponseEntity.ok(lstAlumno);
 	}
@@ -40,12 +40,12 @@ public class AlumnoController {
 	
 	@GetMapping("/buscarPorDNI/{dni}")
 	public ResponseEntity<List<Alumno>> buscar(@PathVariable("dni") String dni) {
-		log.info(">>>> busca por dni : " + dni);
+		//log.info(">>>> busca por dni : " + dni);
 		List<Alumno> lstAlumno = service.listaPorDni(dni);
 		if (!CollectionUtils.isEmpty(lstAlumno)) {
 			return ResponseEntity.ok(lstAlumno);
 		} else {
-			log.info(">>>> buscar por dni - no existen alumnos con ese dni : " + dni);
+			//log.info(">>>> buscar por dni - no existen alumnos con ese dni : " + dni);
 			return ResponseEntity.badRequest().build();
 		}
 	}
@@ -53,7 +53,7 @@ public class AlumnoController {
 
 	@PostMapping
 	public ResponseEntity<Alumno> registra(@RequestBody Alumno obj){
-		log.info(">>>> registra  " + obj.getIdAlumno());
+		//log.info(">>>> registra  " + obj.getIdAlumno());
 		Alumno objSalida = service.insertaActualizaAlumno(obj);
 		if (objSalida != null) {
 			return ResponseEntity.ok(objSalida);
@@ -64,7 +64,7 @@ public class AlumnoController {
 	
 	@PutMapping
 	public ResponseEntity<Alumno> actualiza(@RequestBody Alumno obj){
-		log.info(">>>> actualiza  " + obj.getIdAlumno());
+		//log.info(">>>> actualiza  " + obj.getIdAlumno());
 		Optional<Alumno> optAlumno = service.obtienePorId(obj.getIdAlumno());
 		if (optAlumno.isPresent()) {
 			Alumno objSalida = service.insertaActualizaAlumno(obj);
@@ -74,20 +74,20 @@ public class AlumnoController {
 				return ResponseEntity.badRequest().build();
 			}	
 		}else {
-			log.info(">>>> actualiza no existe el id : " + obj.getIdAlumno());
+			//log.info(">>>> actualiza no existe el id : " + obj.getIdAlumno());
 			return ResponseEntity.badRequest().build();
 		}
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Alumno> elimina(@PathVariable("id") int idAlumno){
-		log.info(">>>> elimina  " + idAlumno);
+		//log.info(">>>> elimina  " + idAlumno);
 		Optional<Alumno> optAlumno = service.obtienePorId(idAlumno);
 		if (optAlumno.isPresent()) {
 			service.eliminaAlumno(idAlumno);
 			return ResponseEntity.ok(optAlumno.get());
 		}else {
-			log.info(">>>> elimina no existe el id : " + idAlumno);
+			//log.info(">>>> elimina no existe el id : " + idAlumno);
 			return ResponseEntity.badRequest().build();
 		}
 	}
